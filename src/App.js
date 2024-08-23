@@ -1,9 +1,10 @@
-// src/App.js
 import React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import ContactUsSection from "./Sections/ContactUsSection";
+import Navbar from "./components/Navbar";
+import Hero from "./Sections/Hero";
+import Dumbbell3D from "./components/dumbbell";
 
 const theme = createTheme({
   palette: {
@@ -38,29 +39,23 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      {/* Add the Dumbbell3D component here */}
+      <Dumbbell3D
+                modelUrl='/assets/model.glb'
+            />
+
       <div
         style={{
-          backgroundColor: theme.palette.background.default,
+          // backgroundColor: theme.palette.background.default,
           padding: "20px",
           minHeight: "100vh",
+          overflowX:'hidden',
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <div>
-          <Typography variant="h4">Welcome to My Custom Themed App</Typography>
-          <Button variant="contained" color="primary">
-            Primary Button
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            style={{ color: theme.palette.blackText.primary }}
-          >
-            Secondary Button
-          </Button>
-        </div>
-
+        <Navbar/>
+        <Hero/>
         {/* Contact Us Section */}
         <ContactUsSection />
 
