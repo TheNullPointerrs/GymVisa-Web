@@ -46,7 +46,7 @@ const Navbar = (props) => {
                     <Typography
                         variant="h6"
                         component="div"
-                        sx={{ flexGrow: 1 }}
+                        sx={{ flexGrow: 1 , color: theme.palette.text.secondary }}
                     >
                         Gym Visa
                     </Typography>
@@ -70,7 +70,7 @@ const Navbar = (props) => {
                             padding: '4px', // Space between the icon and the border
                         }}
                     >
-                        <MenuIcon sx={{ color: theme.palette.whiteText.primary }} />
+                        <MenuIcon sx={{ color: theme.palette.text.primary }} />
                     </IconButton>
                 </Toolbar>
             </AppBar>

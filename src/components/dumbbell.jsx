@@ -116,11 +116,10 @@ const Dumbbell3D = ({ modelUrl }) => {
             ref={mountRef} 
             style={{
                 position: 'fixed', 
-                top: 100, 
+                top: 150, 
                 overflow: 'hidden',
                 left: 0, 
                 width: '100vw', 
-                height: '100%', 
                 zIndex: -1 // Ensure it stays in the background
             }} 
         />

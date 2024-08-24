@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GradientBall = () => {
+const GradientBall = (right) => {
     const circleStyle = {
         width: '100px', // Adjust the size as needed
         height: '100px',
@@ -14,7 +14,7 @@ const GradientBall = () => {
         position:'fixed',
         zIndex:-100,
         top:'70%',
-        right:'95%'
+        right:right
     };
 
     return (
