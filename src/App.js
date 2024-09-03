@@ -6,6 +6,7 @@ import Hero from "./Sections/Hero";
 import Dumbbell3D from "./components/dumbbell";
 import Footer from "./components/Footer";
 import Features from "./Sections/Features";
+import AboutSection from "./Sections/AboutSection";
 
 const theme = createTheme({
   palette: {
@@ -54,6 +55,7 @@ function App() {
       >
         <Navbar/>
         <Hero/>
+        <AboutSection/>
         <Features/>
         <ContactUsSection />
         <Footer/>
