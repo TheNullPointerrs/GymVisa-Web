@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ContactUsSection from "./Sections/ContactUsSection";
 import Navbar from "./components/Navbar";
@@ -7,6 +7,10 @@ import Dumbbell3D from "./components/dumbbell";
 import Footer from "./components/Footer";
 import Features from "./Sections/Features";
 import AboutSection from "./Sections/AboutSection";
+import Card from "./Sections/Card";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./firebase";
+import { Box } from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -36,29 +40,65 @@ const theme = createTheme({
   },
 });
 
+const fetchSubscriptions = async () => {
+  const subscriptionRef = collection(db, "Subscriptions");
+  const snapshot = await getDocs(subscriptionRef);
+  const subscriptionList = snapshot.docs.map((doc) => doc.data());
+  return subscriptionList;
+}
 
 function App() {
+  const [subscriptionList, setSubscriptionList] = useState([]);
+
+  useEffect(() => {
+    const getSubscriptions = async () => {
+      const subscriptions = await fetchSubscriptions();
+      setSubscriptionList(subscriptions);
+    };
+    getSubscriptions();
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
-      <Dumbbell3D
-                modelUrl='/assets/model.glb'
-            />
+      <Dumbbell3D modelUrl='/assets/model.glb' />
 
       <div
         style={{
           padding: "20px",
           minHeight: "100vh",
-          overflowX:'hidden',
+          overflowX: 'hidden',
           display: "flex",
           flexDirection: "column",
         }}
       >
-        <Navbar/>
-        <Hero/>
-        <AboutSection/>
-        <Features/>
+        <Navbar />
+        <Hero />
+        <Box sx={{display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-evenly",
+          paddingTop: "60px",
+          paddingBottom: "100px"}}>
+        {subscriptionList.length > 0 && (
+          <>
+            <Card 
+              amount={subscriptionList[0].price} 
+              name="Standard" 
+              description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price." 
+              footer="10+ Gyms registered" 
+            />
+            <Card 
+              amount={subscriptionList[1].price} 
+              name="Premium" 
+              description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership." 
+              footer="20+ Gyms registered" 
+            />
+          </>
+        )}
+        </Box>
+        <AboutSection />
+        <Features />
         <ContactUsSection />
-        <Footer/>
+        <Footer />
       </div>
     </ThemeProvider>
   );

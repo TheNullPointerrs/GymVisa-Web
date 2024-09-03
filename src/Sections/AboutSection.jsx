@@ -41,7 +41,7 @@ function Number1({ n }) {
     from: { number: 0 },
     to: { number: n },
     delay: 200,
-    config: { mass: 5, tension: 500, friction: 80 },
+    config: { mass: 5, tension: 500, friction: 200 },
   });
   return (
     <animated.h1
@@ -57,7 +57,7 @@ function Number2({ n }) {
     from: { number: 0 },
     to: { number: n },
     delay: 200,
-    config: { mass: 5, tension: 500, friction: 80 },
+    config: { mass: 5, tension: 500, friction: 200 },
   });
   return (
     <animated.h1
