@@ -10,7 +10,7 @@ import AboutSection from "./Sections/AboutSection";
 import Card from "./Sections/Card";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
-import { Box } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 
 const theme = createTheme({
   palette: {
@@ -45,7 +45,7 @@ const fetchSubscriptions = async () => {
   const snapshot = await getDocs(subscriptionRef);
   const subscriptionList = snapshot.docs.map((doc) => doc.data());
   return subscriptionList;
-}
+};
 
 function App() {
   const [subscriptionList, setSubscriptionList] = useState([]);
@@ -60,40 +60,45 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Dumbbell3D modelUrl='/assets/model.glb' />
+      <Dumbbell3D modelUrl="/assets/model.glb" />
 
       <div
         style={{
           padding: "20px",
           minHeight: "100vh",
-          overflowX: 'hidden',
+          overflowX: "hidden",
           display: "flex",
           flexDirection: "column",
         }}
       >
         <Navbar />
         <Hero />
-        <Box sx={{display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-          paddingTop: "60px",
-          paddingBottom: "100px"}}>
-        {subscriptionList.length > 0 && (
-          <>
-            <Card 
-              amount={subscriptionList[0].price} 
-              name="Standard" 
-              description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price." 
-              footer="10+ Gyms registered" 
-            />
-            <Card 
-              amount={subscriptionList[1].price} 
-              name="Premium" 
-              description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership." 
-              footer="20+ Gyms registered" 
-            />
-          </>
-        )}
+        <Box
+          sx={{
+            paddingTop: "60px",
+            paddingBottom: "100px",
+          }}
+        >
+          {subscriptionList.length > 0 && (
+            <Grid container spacing={4}>
+              <Grid item xs={12} sm={6}>
+                <Card
+                  amount={subscriptionList[0].price}
+                  name="Standard"
+                  description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
+                  footer="10+ Gyms registered"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Card
+                  amount={subscriptionList[1].price}
+                  name="Premium"
+                  description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership."
+                  footer="20+ Gyms registered"
+                />
+              </Grid>
+            </Grid>
+          )}
         </Box>
         <AboutSection />
         <Features />

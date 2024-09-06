@@ -2,15 +2,13 @@ import React from 'react';
 import { styled } from '@mui/system';
 
 const CardContainer = styled('div')({
-  backgroundColor: '#1A1A1A', // Dark gray backgroun
+  backgroundColor: '#1A1A1A', // Dark gray background
   borderRadius: '10px',
   boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
   padding: '20px', // Added padding on all sides
   paddingTop: '50px',
   paddingBottom: '50px',
   width: '300px',
-  marginLeft: '30px', // Left margin
-  marginRight: '30px', 
   margin: '20px auto',
 });
 
