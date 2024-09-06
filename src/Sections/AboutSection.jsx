@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Typography, Box, Container } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { collection, getDocs } from "firebase/firestore";
@@ -36,10 +36,10 @@ const theme = createTheme({
   },
 });
 
-function Number1({ n }) {
+function Number1({ n, trigger }) {
   const { number } = useSpring({
     from: { number: 0 },
-    to: { number: n },
+    to: { number: trigger ? n : 0 },
     delay: 200,
     config: { mass: 5, tension: 500, friction: 200 },
   });
@@ -52,10 +52,10 @@ function Number1({ n }) {
   );
 }
 
-function Number2({ n }) {
+function Number2({ n, trigger }) {
   const { number } = useSpring({
     from: { number: 0 },
-    to: { number: n },
+    to: { number: trigger ? n : 0 },
     delay: 200,
     config: { mass: 5, tension: 500, friction: 200 },
   });
@@ -141,6 +141,8 @@ function AboutSection() {
   const [gyms, setGyms] = useState([]);
   const [standardGymCount, setStandardGymCount] = useState(0);
   const [premiumGymCount, setPremiumGymCount] = useState(0);
+  const [trigger, setTrigger] = useState(false);
+  const counterRef = useRef(null);
 
   useEffect(() => {
     const getGyms = async () => {
@@ -156,6 +158,28 @@ function AboutSection() {
       setPremiumGymCount(premiumGyms.length);
     };
     getGyms();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTrigger(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (counterRef.current) {
+      observer.observe(counterRef.current);
+    }
+
+    return () => {
+      if (counterRef.current) {
+        observer.unobserve(counterRef.current);
+      }
+    };
   }, []);
 
   const handlePrev = () => {
@@ -202,6 +226,7 @@ function AboutSection() {
           justifyContent: "space-evenly",
           paddingTop: "60px",
         }}
+        ref={counterRef}
       >
         <Box
           sx={{
@@ -210,7 +235,7 @@ function AboutSection() {
             alignItems: "center",
           }}
         >
-          <Number1 n={standardGymCount} />
+          <Number1 n={standardGymCount} trigger={trigger} />
           <h1 style={{ fontWeight: 100, margin: 0 }}>Standard Gyms</h1>
         </Box>
         <Box
@@ -220,7 +245,7 @@ function AboutSection() {
             alignItems: "center",
           }}
         >
-          <Number2 n={premiumGymCount} />
+          <Number2 n={premiumGymCount} trigger={trigger} />
           <h1 style={{ fontWeight: 100, margin: 0 }}>Premium Gyms</h1>
         </Box>
       </Box>
