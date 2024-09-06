@@ -55,16 +55,14 @@ function ContactUsSection() {
     }
 
     // Send email via EmailJS
-    emailjs
-      .send(
-        "service_inttdlf",
-        "template_c9m6k4n",
-        {
-          name,
-          email, // This should be the user's email for reply-to
-          message
+    emailjs.send("service_5zxhxv7","template_hdx2v58",{
+      from_name: name,
+      to_name: "Gym Visa",
+      message: message,
+      from_email: email,
+      reply_to: email,
         },
-        "iGWKAAXf0akuDhqzO" // Your user ID
+        "Ez6O0eM-CroAV-gcr" 
       )
       .then(
         (result) => {

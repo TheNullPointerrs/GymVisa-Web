@@ -19,7 +19,7 @@ const Footer = ()=>{
               fontSize: "1rem",
             }}
           >
-            marhabaemaan@gmail.com
+            info@gymvisa.co
           </Button>
         </div>)
 }
