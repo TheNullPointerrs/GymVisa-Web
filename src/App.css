@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +37,20 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+/* CSS file for responsive button styles */
+.footer-button {
+  color: #B3FF11;
+  text-transform: none;
+  font-size: 1rem;
+  transition: font-size 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .footer-button {
+    font-size: 0.875rem; /* Reduce font size on smaller screens */
+  }
+}
+
