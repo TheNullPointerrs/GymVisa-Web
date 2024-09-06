@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ContactUsSection from "./Sections/ContactUsSection";
 import Navbar from "./components/Navbar";
 import Hero from "./Sections/Hero";
-import Dumbbell3D from "./components/dumbbell";
 import Footer from "./components/Footer";
 import Features from "./Sections/Features";
 import AboutSection from "./Sections/AboutSection";
@@ -60,7 +59,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Dumbbell3D modelUrl="/assets/model.glb" />
 
       <div
         style={{

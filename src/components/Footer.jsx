@@ -76,22 +76,13 @@ const Footer = () => {
       style={{
         marginTop: "20px",
         marginBottom: "10px",
+        height:'100px',
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: "10px",
       }}
     >
-      <Button
-        variant="text"
-        style={{
-          color: "white",
-          textTransform: "none",
-          fontSize: "1rem",
-        }}
-      >
-        info@gymvisa.co
-      </Button>
 
       <div style={{ display: "flex", gap: "10px" }}>
         <Button

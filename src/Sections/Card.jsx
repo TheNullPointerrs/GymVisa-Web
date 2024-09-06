@@ -44,7 +44,7 @@ const CardFooter = styled('p')({
 
 const Card = ({ amount, name, description, footer }) => {
   return (
-    <CardContainer>
+    <CardContainer id='plans'>
       <CardHeader>
         <CardTitle>{amount} Rs/-</CardTitle>
         <CardSubtitle>{name}</CardSubtitle>

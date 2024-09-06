@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const Dumbbell3D = ({ modelUrl }) => {
     const mountRef = useRef(null);
@@ -12,96 +11,82 @@ const Dumbbell3D = ({ modelUrl }) => {
             return;
         }
 
-        // Set up the scene
+        const mount = mountRef.current;
         const scene = new THREE.Scene();
-
-        // Set up the camera
         const camera = new THREE.PerspectiveCamera(
-            75, // Field of view
-            window.innerWidth / window.innerHeight, // Aspect ratio
-            0.1, // Near clipping plane
-            1000 // Far clipping plane
+            75,
+            mount.clientWidth / mount.clientHeight,
+            0.1,
+            1000
         );
-        camera.position.z = 5; // Initial camera position
+        camera.position.z = 5;
 
-        // Set up the renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(mount.clientWidth, mount.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
-        mountRef.current.appendChild(renderer.domElement);
+        mount.appendChild(renderer.domElement);
 
-        // Set up lighting
-        const ambientLight = new THREE.AmbientLight(0x404040, 1); // Soft white light
+        const ambientLight = new THREE.AmbientLight(0x404040, 1);
         scene.add(ambientLight);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Stronger directional light
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
         directionalLight.position.set(10, 10, 10).normalize();
         scene.add(directionalLight);
 
-        // Load the glTF model
         const loader = new GLTFLoader();
         loader.load(
             modelUrl,
             (gltf) => {
                 const model = gltf.scene;
 
-                // Adjust the model's material
                 model.traverse((child) => {
                     if (child.isMesh) {
                         child.material = new THREE.MeshStandardMaterial({
-                            color: 0x8c8c8c, // Gray color
-                            emissive: 0x4a4a4a, // Slight emissive color
+                            color: 0x8c8c8c,
+                            emissive: 0x4a4a4a,
                             emissiveIntensity: 0.5,
                             roughness: 0.5,
                             metalness: 0.5,
                         });
-                        child.castShadow = true; // Cast shadows
-                        child.receiveShadow = true; // Receive shadows
+                        child.castShadow = true;
+                        child.receiveShadow = true;
                     }
                 });
 
                 model.position.set(0, 0, 1);
-                model.scale.set(2, 2, 2); // Set to original size
+                model.scale.set(2, 2, 2);
                 scene.add(model);
 
-                // Animation loop
                 const animate = () => {
                     requestAnimationFrame(animate);
-
-                    // Rotate the model
-                    model.rotation.y += 0.01; // Adjust this value for desired rotation speed
-
-                    renderer.render(scene, camera); // Render the scene
+                    model.rotation.y += 0.01;
+                    renderer.render(scene, camera);
                 };
                 animate();
 
-                // Handle window resize
                 const handleResize = () => {
-                    const width = window.innerWidth;
-                    const height = window.innerHeight;
+                    const width = mount.clientWidth;
+                    const height = mount.clientHeight;
 
-                    // Adjust camera position and model scale based on screen size
                     if (width < 768) {
-                        camera.position.z = 7; // Move camera back for smaller screens
-                        model.scale.set(1.5, 1.5, 1.5); // Reduce model scale
+                        camera.position.z = 7;
+                        model.scale.set(1.5, 1.5, 1.5);
                     } else {
-                        camera.position.z = 5; // Default camera position
-                        model.scale.set(2, 2, 2); // Default model scale
+                        camera.position.z = 5;
+                        model.scale.set(2, 2, 2);
                     }
 
                     renderer.setSize(width, height);
                     camera.aspect = width / height;
                     camera.updateProjectionMatrix();
                 };
-                window.addEventListener('resize', handleResize);
 
-                // Initial call to handle screen size
+                window.addEventListener('resize', handleResize);
                 handleResize();
 
-                // Clean up resources on component unmount
                 return () => {
                     window.removeEventListener('resize', handleResize);
-                    mountRef.current.removeChild(renderer.domElement);
+                    mount.removeChild(renderer.domElement);
                 };
             },
             undefined,
@@ -112,16 +97,14 @@ const Dumbbell3D = ({ modelUrl }) => {
     }, [modelUrl]);
 
     return (
-        <div 
-            ref={mountRef} 
+        <div
+            ref={mountRef}
             style={{
-                position: 'fixed', 
-                top: 150, 
+                position: 'absolute', // Use relative positioning
+                width: '100%', // Adjust to fit parent container
+                height: '100vh', // Adjust to fit parent container
                 overflow: 'hidden',
-                left: 0, 
-                width: '100vw', 
-                zIndex: -1 // Ensure it stays in the background
-            }} 
+            }}
         />
     );
 };

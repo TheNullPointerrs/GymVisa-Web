@@ -1,19 +1,32 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAnalytics , isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDS5k29udIpFP02nuJAcPXYVd5WtDWCVeI",
-  authDomain: "gymvisa-d2c4a.firebaseapp.com",
-  projectId: "gymvisa-d2c4a",
-  storageBucket: "gymvisa-d2c4a.appspot.com",
-  messagingSenderId: "1057011839530",
-  appId: "1:1057011839530:web:d1ba5e78770bb49e778953",
-  measurementId: "G-GZF7QT1B2Z"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
+
 const app = initializeApp(firebaseConfig);
 
-const analytics = getAnalytics(app);
+let analytics;
+isSupported().then((supported) => {
+  if (supported) {
+    analytics = getAnalytics(app);
+  } else {
+    console.warn("Firebase Analytics is not supported in this environment.");
+  }
+});
+const storage = getStorage(app);
+
+export { storage, ref, getDownloadURL };
 
 export const db = getFirestore(app);

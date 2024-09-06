@@ -3,7 +3,7 @@ import { Typography, Box, Container } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { useSpring, animated } from "react-spring";
+import { useSpring, animated } from '@react-spring/web';
 
 const fetchGyms = async () => {
   const gymRef = collection(db, "Gyms");
@@ -75,6 +75,7 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
 
   return (
     <Container
+      id = 'gyms'
       sx={{
         display: "flex",
         flexDirection: "row",
@@ -197,7 +198,7 @@ function AboutSection() {
   };
 
   return (
-    <Container>
+    <Container id='about'>
       <Typography
         variant="h2"
         style={{ textAlign: "center", paddingBottom: "40px", fontWeight: 600 }}
