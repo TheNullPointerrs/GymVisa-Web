@@ -4,6 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { useSpring, animated } from "react-spring";
+import '../App.css';
 
 const fetchGyms = async () => {
   const gymRef = collection(db, "Gyms");
@@ -236,7 +237,7 @@ function AboutSection() {
           }}
         >
           <Number1 n={standardGymCount} trigger={trigger} />
-          <h1 style={{ fontWeight: 100, margin: 0 }}>Standard Gyms</h1>
+          <h1 className="responsive-heading">Standard Gyms</h1>
         </Box>
         <Box
           sx={{
@@ -246,7 +247,7 @@ function AboutSection() {
           }}
         >
           <Number2 n={premiumGymCount} trigger={trigger} />
-          <h1 style={{ fontWeight: 100, margin: 0 }}>Premium Gyms</h1>
+          <h1 className="responsive-heading">Premium Gyms</h1>
         </Box>
       </Box>
       {gyms.length > 0 && (
