@@ -80,11 +80,15 @@ function ContactUsSection() {
 
   return (
     <>
-      <Grid container spacing={4} style={{ marginTop: "40px" }}>
+      <Grid id='contact' container spacing={4} style={{ marginTop: "40px" }}>
         <Grid item xs={12} md={4} style={{ paddingRight: "20px" }}>
           <Typography
-            variant="h5"
-            style={{ color: theme.palette.primary.main }}
+            variant="h4"
+            style={{ 
+              color: theme.palette.primary.main,
+              fontWeight: 'bold'
+
+             }}
           >
             Contact Us
           </Typography>
@@ -95,6 +99,16 @@ function ContactUsSection() {
             Contact for any queries related to subscriptions or any business
             related.
           </Typography>
+          <Typography
+          style={{
+            textTransform: "none",
+            fontSize: "1rem",
+            mt: 3,
+            color: theme.palette.primary.main
+          }}
+        >
+          info@gymvisa.co
+        </Typography>
         </Grid>
         <Grid item xs={12} md={8}>
           <Box

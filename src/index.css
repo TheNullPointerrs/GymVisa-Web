@@ -1,3 +1,22 @@
+/* Scrollbar Styles for WebKit Browsers */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #232323; /* Light color for the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Dark color for the thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker color for the thumb on hover */
+}
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +24,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: thin; /* Makes the scrollbar thinner */
+
 }
 
 code {

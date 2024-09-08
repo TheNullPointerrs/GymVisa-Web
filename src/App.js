@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import ContactUsSection from "./Sections/ContactUsSection";
 import Navbar from "./components/Navbar";
 import Hero from "./Sections/Hero";
-import Dumbbell3D from "./components/dumbbell";
 import Footer from "./components/Footer";
 import Features from "./Sections/Features";
 import AboutSection from "./Sections/AboutSection";
@@ -60,8 +59,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Dumbbell3D modelUrl="/assets/model.glb" />
-
       <div
         style={{
           padding: "20px",
@@ -83,7 +80,8 @@ function App() {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6}>
                 <Card
-                  amount={subscriptionList[0].price}
+                  originalPrice={8000} // Original price with strikethrough
+                  amount={subscriptionList[0].price} // Actual price from Firebase
                   name="Standard"
                   description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
                   footer="10+ Gyms registered"
@@ -91,6 +89,7 @@ function App() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Card
+                  originalPrice={12000} // Original price with strikethrough
                   amount={subscriptionList[1].price}
                   name="Premium"
                   description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership."

@@ -3,8 +3,11 @@ import { Typography, Box, Container } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { useSpring, animated } from "react-spring";
-import '../App.css';
+import { useSpring, animated } from '@react-spring/web';
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useTypewriter, Cursor } from 'react-simple-typewriter'; // Import Typewriter
 
 const fetchGyms = async () => {
   const gymRef = collection(db, "Gyms");
@@ -35,25 +38,23 @@ const theme = createTheme({
       main: "#A9A9A9",
     },
   },
+  typography: {
+    h2: {
+      fontSize: '2.5rem',
+      '@media (max-width:600px)': {
+        fontSize: '1.8rem',
+      },
+    },
+    body1: {
+      fontSize: '1.2rem',
+      '@media (max-width:600px)': {
+        fontSize: '1rem',
+      },
+    },
+  },
 });
 
-function Number1({ n, trigger }) {
-  const { number } = useSpring({
-    from: { number: 0 },
-    to: { number: trigger ? n : 0 },
-    delay: 200,
-    config: { mass: 5, tension: 500, friction: 200 },
-  });
-  return (
-    <animated.h1
-      style={{ color: theme.palette.primary.main, fontSize: "3rem" }}
-    >
-      {number.to((n) => Math.round(n))}
-    </animated.h1>
-  );
-}
-
-function Number2({ n, trigger }) {
+function Number({ n, trigger }) {
   const { number } = useSpring({
     from: { number: 0 },
     to: { number: trigger ? n : 0 },
@@ -76,15 +77,35 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
 
   return (
     <Container
+      id="gyms"
       sx={{
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
         paddingTop: "60px",
+        '@media (max-width:600px)': {
+          flexDirection: "row",
+          justifyContent: "space-between",
+          padding: "20px",
+        },
+        '@media (min-width:390px) and (max-width:430px)': {
+          padding: "0 0px", 
+        },
       }}
     >
-      <Box>
+      {/* Left arrow */}
+      <Box
+        sx={{
+          width: "50px", // Fixed width for the button to ensure it stays in place
+          '@media (max-width:600px)': {
+            marginRight: "20px", // More space between the button and the text
+          },
+          '@media (min-width:390px) and (max-width:430px)': {
+            marginRight: "30px", // Increase margin for wider mobile devices
+          },
+        }}
+      >
         <button
           onClick={handlePrev}
           className="prev-button"
@@ -94,30 +115,66 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
             cursor: "pointer",
             fontSize: "24px",
             color: "white",
+            '@media (max-width:600px)': {
+              fontSize: "2rem",
+            },
           }}
         >
-          <span style={{ fontSize: "4rem" }} className="arrow-left">
+          <span
+            style={{
+              fontSize: "4rem",
+              '@media (max-width:600px)': { fontSize: "2.5rem" },
+            }}
+            className="arrow-left"
+          >
             &lt;
           </span>
         </button>
       </Box>
+
       <Box
         className="gym-slider"
         sx={{
           width: "500px",
+          textAlign: "center",
+          '@media (max-width:600px)': {
+            width: "calc(100% - 140px)",
+            padding: "0 20px",
+          },
+          '@media (min-width:390px) and (max-width:430px)': {
+            width: "calc(100% - 160px)", 
+          },
         }}
       >
-        <Box className="gym-info" sx={{ textAlign: "center" }}>
-          <h4 style={{ fontWeight: "100" }}>{currentGym.subscription}</h4>
-          <h2 style={{ color: theme.palette.primary.secondary }}>
-            {currentGym.name}
-          </h2>
-          <p style={{ color: theme.palette.primary.main }}>
-            {currentGym.address}
-          </p>
-        </Box>
+        <h4 style={{ fontWeight: "100", fontSize: "1rem" }}>
+          {currentGym.subscription}
+        </h4>
+        <h2
+          style={{
+            color: theme.palette.primary.secondary,
+            fontSize: "2rem",
+            wordWrap: "break-word", // Ensures long text wraps properly
+          }}
+        >
+          {currentGym.name}
+        </h2>
+        <p style={{ color: theme.palette.primary.main, fontSize: "1rem" }}>
+          {currentGym.address}
+        </p>
       </Box>
-      <Box>
+
+      {/* Right arrow */}
+      <Box
+        sx={{
+          width: "50px", // Fixed width for the button to ensure it stays in place
+          '@media (max-width:600px)': {
+            marginLeft: "20px", // More space between the button and the text
+          },
+          '@media (min-width:390px) and (max-width:430px)': {
+            marginLeft: "30px", // Increase margin for wider mobile devices
+          },
+        }}
+      >
         <button
           onClick={handleNext}
           className="next-button"
@@ -127,9 +184,18 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
             cursor: "pointer",
             fontSize: "24px",
             color: "white",
+            '@media (max-width:600px)': {
+              fontSize: "2rem",
+            },
           }}
         >
-          <span style={{ fontSize: "4rem" }} className="arrow-right">
+          <span
+            style={{
+              fontSize: "4rem",
+              '@media (max-width:600px)': { fontSize: "2.5rem" },
+            }}
+            className="arrow-right"
+          >
             &gt;
           </span>
         </button>
@@ -137,6 +203,10 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
     </Container>
   );
 }
+
+
+
+
 
 function AboutSection() {
   const [gyms, setGyms] = useState([]);
@@ -183,42 +253,51 @@ function AboutSection() {
     };
   }, []);
 
-  const handlePrev = () => {
-    setGyms((prevGyms) => {
-      const newIndex = prevGyms.length - 1;
-      return prevGyms.slice(newIndex).concat(prevGyms.slice(0, newIndex));
-    });
-  };
-
-  const handleNext = () => {
-    setGyms((prevGyms) => {
-      const newIndex = 1;
-      return prevGyms.slice(newIndex).concat(prevGyms.slice(0, newIndex));
-    });
-  };
+  const [text] = useTypewriter({
+    words: ['Discounts.'],
+    loop: true,
+    typeSpeed: 100,
+    deleteSpeed: 50,
+  });
 
   return (
-    <Container>
+    <Container id='about'>
       <Typography
         variant="h2"
-        style={{ textAlign: "center", paddingBottom: "40px", fontWeight: 600 }}
+        sx={{
+          textAlign: "center",
+          paddingBottom: "40px",
+          fontWeight: 600,
+          fontSize: {
+            xs: '1.5rem',  
+            sm: '2rem', 
+            md: '2.5rem',   
+            lg: '4rem'    
+          }
+        }}
         color="primary"
       >
         About
       </Typography>
       <Typography
         variant="body1"
-        style={{ textAlign: "center" }}
+        sx={{
+          textAlign: "center",
+          fontSize: {
+            xs: '1rem',   
+            sm: '1.2rem', 
+            md: '1.3rem', 
+            lg: '1.5rem'  
+          }
+        }}
         color="whiteText"
       >
-        Gym Visa is a Flutter-based mobile app with a backend in Firebase,
-        designed to offer users access to multiple gyms under various
+        Gym Visa is a mobile app, designed to offer users access to multiple gyms under various
         subscription packages. Users can purchase these packages through the
         in-app payment gateway. Additionally, the app provides offline exercise
         videos for full-body workouts and allows users to request diet plans
         from different nutritionists. Subscribed users can visit gyms by
-        scanning the provided QR code for verification, while the admin panel
-        manages user and gym data based on subscriptions.
+        scanning the provided QR code and enjoy their fitness journey.
       </Typography>
       <Box
         sx={{
@@ -226,67 +305,47 @@ function AboutSection() {
           flexDirection: "row",
           justifyContent: "space-evenly",
           paddingTop: "60px",
+          '@media (max-width:600px)': {
+            flexDirection: "column",
+            alignItems: "center",
+          },
         }}
         ref={counterRef}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Number1 n={standardGymCount} trigger={trigger} />
-          <h1 className="responsive-heading">Standard Gyms</h1>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Number n={standardGymCount} trigger={trigger} />
+          <Typography variant="h5">Standard Gyms</Typography>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Number2 n={premiumGymCount} trigger={trigger} />
-          <h1 className="responsive-heading">Premium Gyms</h1>
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Number n={premiumGymCount} trigger={trigger} />
+          <Typography variant="h5">Premium Gyms</Typography>
         </Box>
       </Box>
       {gyms.length > 0 && (
         <GymSlider
           gymList={gyms}
-          handlePrev={handlePrev}
-          handleNext={handleNext}
+          handlePrev={() => setGyms(prev => [...prev.slice(-1), ...prev.slice(0, -1)])}
+          handleNext={() => setGyms(prev => [...prev.slice(1), prev[0]])}
         />
       )}
 
       <Box sx={{ paddingTop: "100px", paddingBottom: "100px" }}>
-        <h5
-          style={{
-            fontWeight: "100",
-            fontSize: "1.5rem",
-            margin: "0 0 10px 0",
-          }}
-        >
-          Coming Soon
-        </h5>
-        <h1
-          style={{
+        <Typography variant="h6">Coming Soon</Typography>
+        <Typography
+          variant="h1"
+          sx={{
             color: "black",
             fontSize: "6rem",
             margin: "10px 0",
             textShadow: `2px 2px 0 ${theme.palette.primary.main}, -2px -2px 0 ${theme.palette.primary.main}, 2px -2px 0 ${theme.palette.primary.main}, -2px 2px 0 ${theme.palette.primary.main}`,
+            '@media (max-width:600px)': {
+              fontSize: "4rem",
+            },
           }}
         >
-          Discounts
-        </h1>
-        <h6
-          style={{
-            fontWeight: "100",
-            fontSize: "1.5rem",
-            margin: "10px 0 0 0",
-          }}
-        >
-          Get Discounts on Subscriptions
-        </h6>
+          {text}<Cursor />
+        </Typography>
+        <Typography variant="h6">Get Discounts on Subscriptions</Typography>
       </Box>
     </Container>
   );

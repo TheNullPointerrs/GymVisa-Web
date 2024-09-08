@@ -76,27 +76,20 @@ const Footer = () => {
       style={{
         marginTop: "20px",
         marginBottom: "10px",
+        height: '100px',
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: "10px",
       }}
     >
-      <Button
-        variant="text"
-        style={{
-          color: "white",
-          textTransform: "none",
-          fontSize: "1rem",
-        }}
-      >
-        info@gymvisa.co
-      </Button>
-
-      <div style={{ display: "flex", gap: "10px" }}>
+      <div style={{ display: "flex", gap: "10px", flexWrap: 'wrap' }}>
         <Button
           variant="text"
           className="footer-button"
+          sx={{
+            fontSize: { xs: '12px', sm: '14px', md: '16px' }  // Responsive text size
+          }}
           onClick={() =>
             handleClickOpen(
               "Payment Policy",
@@ -110,6 +103,9 @@ const Footer = () => {
         <Button
           variant="text"
           className="footer-button"
+          sx={{
+            fontSize: { xs: '12px', sm: '14px', md: '16px' }  // Responsive text size
+          }}
           onClick={() =>
             handleClickOpen(
               "Privacy Policy",
@@ -123,6 +119,9 @@ const Footer = () => {
         <Button
           variant="text"
           className="footer-button"
+          sx={{
+            fontSize: { xs: '12px', sm: '14px', md: '16px' }  // Responsive text size
+          }}
           onClick={() =>
             handleClickOpen(
               "Refund & Exchange Policy",
@@ -136,6 +135,9 @@ const Footer = () => {
         <Button
           variant="text"
           className="footer-button"
+          sx={{
+            fontSize: { xs: '12px', sm: '14px', md: '16px' }  // Responsive text size
+          }}
           onClick={() =>
             handleClickOpen(
               "FAQs",

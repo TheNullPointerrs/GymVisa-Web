@@ -1,8 +1,8 @@
 import React from 'react';
 
-const GradientBall = (right) => {
+const GradientBall = ({ position, offset }) => {
     const circleStyle = {
-        width: '100px', // Adjust the size as needed
+        width: '100px',
         height: '100px',
         borderRadius: '50%', // This makes the shape a circle
         background: 'linear-gradient(to right, #B3FF11, #000000)', // Gradient colors
@@ -11,10 +11,10 @@ const GradientBall = (right) => {
         justifyContent: 'center',
         color: '#fff',
         fontWeight: 'bold',
-        position:'fixed',
-        zIndex:-100,
-        top:'70%',
-        right:right
+        position: 'fixed',
+        zIndex: -100,
+        ...position, // Spread the position prop
+        top: offset === 'high' ? '15%' : '70%', // Adjust position based on offset
     };
 
     return (

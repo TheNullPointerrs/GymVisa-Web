@@ -12,7 +12,11 @@ const Navbar = (props) => {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const handleDrawerToggle = () => {
-        setMobileOpen((prevState) => !prevState); // Toggles the state
+        setMobileOpen((prevState) => !prevState);
+    };
+
+    const scrollToSection = (id) => {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     };
 
     const drawer = (
@@ -20,7 +24,10 @@ const Navbar = (props) => {
             <List>
                 {navItems.map((item) => (
                     <ListItem key={item} disablePadding sx={{ color: '#fff' }}>
-                        <ListItemButton sx={{ textAlign: 'center', color: '#fff' }}>
+                        <ListItemButton
+                            onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, '-'))} // Convert item to ID format
+                            sx={{ textAlign: 'center', color: '#fff' }}
+                        >
                             <ListItemText primary={item} sx={{ color: '#fff' }} />
                         </ListItemButton>
                     </ListItem>
@@ -46,13 +53,17 @@ const Navbar = (props) => {
                     <Typography
                         variant="h6"
                         component="div"
-                        sx={{ flexGrow: 1 , color: theme.palette.text.secondary }}
+                        sx={{ flexGrow: 1, color: theme.palette.text.secondary }}
                     >
                         Gym Visa
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {navItems.map((item) => (
-                            <Button key={item} sx={{ color: '#fff' }}>
+                            <Button
+                                key={item}
+                                sx={{ color: '#fff' }}
+                                onClick={() => scrollToSection(item.toLowerCase().replace(/\s+/g, '-'))} // Convert item to ID format
+                            >
                                 {item}
                             </Button>
                         ))}
@@ -63,9 +74,10 @@ const Navbar = (props) => {
                         edge="end" // Aligns the menu icon to the right
                         onClick={handleDrawerToggle}
                         sx={{ 
-                            ml: 2, 
+                            ml: 2,
+                             
                             display: { sm: 'none' },
-                            border: '2px solid #fff', // Border around the icon
+                            border: '1px solid white', // Border around the icon
                             borderRadius: '5px', // Rounded corners
                             padding: '4px', // Space between the icon and the border
                         }}

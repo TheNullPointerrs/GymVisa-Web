@@ -2,7 +2,6 @@ import React from "react";
 import MobileScreen from "../components/MobileScreen";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import GradientBall from "../components/ball";
 
 const featuresList = [
     'Multiple gyms under one subscription',
@@ -13,29 +12,28 @@ const featuresList = [
 ];
 
 const Features = () => {
-    const theme = useTheme(); 
+    const theme = useTheme();
 
     return (
-        <Box
+        <Box id="user-guide"
             sx={{
                 display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
+                flexDirection: { xs: 'column', md: 'row' }, // Column layout on small screens and row layout on medium and larger screens
+                justifyContent: 'space-between', // Center content on smaller screens
                 alignItems: 'center',
                 p: '4em',
-                minHeight: '100vh', 
+                minHeight: '100vh',
                 color: 'white',
             }}
         >
-            <GradientBall right='0%'></GradientBall>
-            <Box sx={{ flex: 1 }}> 
+            <Box sx={{ flex: 1, mb: { xs: '2em', md: 0 }, textAlign: { xs: 'center', md: 'left' } }}>
                 <Typography
                     component='h1'
                     sx={{
                         fontWeight: 'bold',
-                        fontSize: '2em',
-                        mb: '1em', 
-                        color:theme.palette.text.secondary
+                        fontSize: { xs: '1.5em', md: '2em' }, // Adjust font size for smaller screens
+                        mb: '1em',
+                        color: theme.palette.text.secondary
                     }}
                 >
                     Features
@@ -43,7 +41,8 @@ const Features = () => {
                 <List 
                     sx={{ 
                         listStyleType: 'disc', 
-                        pl: '1.5em',
+                        pl: { xs: '1em', md: '1.5em' }, // Adjust padding for smaller screens
+                        textAlign: { xs: 'center', md: 'left' }, // Center text on small screens
                     }}
                 >
                     {featuresList.map((item) => (
@@ -64,7 +63,13 @@ const Features = () => {
                 </List>
             </Box>
 
-            <MobileScreen sx={{ flex: 1 }} /> {/* Ensure MobileScreen is responsive */}
+            <Box sx={{ 
+
+
+
+             }}>
+                <MobileScreen /> {/* Ensure MobileScreen is responsive */}
+            </Box>
         </Box>
     );
 };
