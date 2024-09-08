@@ -335,11 +335,11 @@ function AboutSection() {
           variant="h1"
           sx={{
             color: "black",
-            fontSize: "6rem",
+            fontSize: "5rem",
             margin: "10px 0",
             textShadow: `2px 2px 0 ${theme.palette.primary.main}, -2px -2px 0 ${theme.palette.primary.main}, 2px -2px 0 ${theme.palette.primary.main}, -2px 2px 0 ${theme.palette.primary.main}`,
             '@media (max-width:600px)': {
-              fontSize: "4rem",
+              fontSize: "3rem",
             },
           }}
         >
