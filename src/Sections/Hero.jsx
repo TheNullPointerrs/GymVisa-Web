@@ -61,7 +61,7 @@ function Hero() {
                         flexDirection: { xs: 'column', sm: 'row' }, 
                     }}
                 >
-        <motion.div
+        {/* <motion.div
             style={{
                 textShadow: '0 0 5px rgba(179, 255, 17, 1)',
                 fontSize: '2rem',
@@ -91,7 +91,7 @@ function Hero() {
                         >
                             Coming Soon
                         </Typography>
-                    </motion.div>
+                    </motion.div> */}
                     {/* <StoreButton store="apple" url="https://apps.apple.com/app/idYOUR_APP_ID" height='50px' />
                     <StoreButton store="google" url="https://play.google.com/store/apps/details?id=YOUR_APP_PACKAGE_NAME" height='70px' /> */}
                 </Box>

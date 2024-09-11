@@ -104,23 +104,7 @@ const CardBody = styled('div')(({ theme }) => ({
   },
 }));
 
-const CardFooter = styled('p')(({ theme }) => ({
-  fontSize: '14px',
-  color: '#B3FF11',
-  marginTop: '20px',
-
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '12px',
-  },
-  [theme.breakpoints.up('md')]: {
-    fontSize: '13px',
-  },
-  [theme.breakpoints.up('lg')]: {
-    fontSize: '14px',
-  },
-}));
-
-const Card = ({ originalPrice, amount, name, description, footer }) => {
+const Card = ({ originalPrice, amount, name, description}) => {
   return (
     <CardContainer id="plans">
       <CardHeader>
@@ -134,7 +118,6 @@ const Card = ({ originalPrice, amount, name, description, footer }) => {
       </CardHeader>
       <CardBody>
         <p>{description}</p>
-        <CardFooter>{footer}</CardFooter>
       </CardBody>
     </CardContainer>
   );

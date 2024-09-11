@@ -84,7 +84,6 @@ function App() {
                   amount={subscriptionList[0].price} // Actual price from Firebase
                   name="Standard"
                   description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
-                  footer="10+ Gyms registered"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -93,7 +92,6 @@ function App() {
                   amount={subscriptionList[1].price}
                   name="Premium"
                   description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership."
-                  footer="20+ Gyms registered"
                 />
               </Grid>
             </Grid>

@@ -345,7 +345,7 @@ function AboutSection() {
         >
           {text}<Cursor />
         </Typography>
-        <Typography variant="h6">Get Discounts on Subscriptions</Typography>
+        <Typography variant="h6">Get Discounts on Subscriptions and Restaurants</Typography>
       </Box>
     </Container>
   );
