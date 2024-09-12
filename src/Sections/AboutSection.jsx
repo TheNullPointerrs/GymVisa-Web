@@ -4,10 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { useSpring, animated } from '@react-spring/web';
-import { IconButton } from "@mui/material";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useTypewriter, Cursor } from 'react-simple-typewriter'; // Import Typewriter
+import { useTypewriter, Cursor } from 'react-simple-typewriter';
 
 const fetchGyms = async () => {
   const gymRef = collection(db, "Gyms");
@@ -84,28 +81,10 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
         alignItems: "center",
         justifyContent: "space-between",
         paddingTop: "60px",
-        '@media (max-width:600px)': {
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: "20px",
-        },
-        '@media (min-width:390px) and (max-width:430px)': {
-          padding: "0 0px", 
-        },
       }}
     >
       {/* Left arrow */}
-      <Box
-        sx={{
-          width: "50px", // Fixed width for the button to ensure it stays in place
-          '@media (max-width:600px)': {
-            marginRight: "20px", // More space between the button and the text
-          },
-          '@media (min-width:390px) and (max-width:430px)': {
-            marginRight: "30px", // Increase margin for wider mobile devices
-          },
-        }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <button
           onClick={handlePrev}
           className="prev-button"
@@ -113,36 +92,27 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
             backgroundColor: "transparent",
             border: "none",
             cursor: "pointer",
-            fontSize: "24px",
+            fontSize: "3rem",
             color: "white",
-            '@media (max-width:600px)': {
-              fontSize: "2rem",
+            '@media (max-width: 600px)': {
+              fontSize: '2.5rem', // Adjust size for smaller screens
             },
           }}
         >
-          <span
-            style={{
-              fontSize: "4rem",
-              '@media (max-width:600px)': { fontSize: "2.5rem" },
-            }}
-            className="arrow-left"
-          >
-            &lt;
-          </span>
+          &lt;
         </button>
       </Box>
 
       <Box
         className="gym-slider"
         sx={{
-          width: "500px",
+          width: { xs: "70%", md: "500px" },
           textAlign: "center",
-          '@media (max-width:600px)': {
-            width: "calc(100% - 140px)",
-            padding: "0 20px",
-          },
-          '@media (min-width:390px) and (max-width:430px)': {
-            width: "calc(100% - 160px)", 
+          paddingX: { xs: 2, sm: 0 },
+          fontSize: {
+            xs: '0.9rem', // Smaller font size for smaller screens
+            sm: '1rem',
+            md: '1.2rem',
           },
         }}
       >
@@ -153,7 +123,10 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
           style={{
             color: theme.palette.primary.secondary,
             fontSize: "2rem",
-            wordWrap: "break-word", // Ensures long text wraps properly
+            wordWrap: "break-word",
+            '@media (max-width: 600px)': {
+              fontSize: '1.5rem', // Adjust size for smaller screens
+            },
           }}
         >
           {currentGym.name}
@@ -164,17 +137,7 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
       </Box>
 
       {/* Right arrow */}
-      <Box
-        sx={{
-          width: "50px", // Fixed width for the button to ensure it stays in place
-          '@media (max-width:600px)': {
-            marginLeft: "20px", // More space between the button and the text
-          },
-          '@media (min-width:390px) and (max-width:430px)': {
-            marginLeft: "30px", // Increase margin for wider mobile devices
-          },
-        }}
-      >
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
         <button
           onClick={handleNext}
           className="next-button"
@@ -182,30 +145,19 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
             backgroundColor: "transparent",
             border: "none",
             cursor: "pointer",
-            fontSize: "24px",
+            fontSize: "3rem",
             color: "white",
-            '@media (max-width:600px)': {
-              fontSize: "2rem",
+            '@media (max-width: 600px)': {
+              fontSize: '2.5rem', // Adjust size for smaller screens
             },
           }}
         >
-          <span
-            style={{
-              fontSize: "4rem",
-              '@media (max-width:600px)': { fontSize: "2.5rem" },
-            }}
-            className="arrow-right"
-          >
-            &gt;
-          </span>
+          &gt;
         </button>
       </Box>
     </Container>
   );
 }
-
-
-
 
 
 function AboutSection() {
@@ -269,10 +221,10 @@ function AboutSection() {
           paddingBottom: "40px",
           fontWeight: 600,
           fontSize: {
-            xs: '1.5rem',  
-            sm: '2rem', 
-            md: '2.5rem',   
-            lg: '4rem'    
+            xs: '1.5rem',
+            sm: '2rem',
+            md: '2.5rem',
+            lg: '4rem'
           }
         }}
         color="primary"
@@ -284,10 +236,10 @@ function AboutSection() {
         sx={{
           textAlign: "center",
           fontSize: {
-            xs: '1rem',   
-            sm: '1.2rem', 
-            md: '1.3rem', 
-            lg: '1.5rem'  
+            xs: '1rem',
+            sm: '1.2rem',
+            md: '1.3rem',
+            lg: '1.5rem'
           }
         }}
         color="whiteText"
@@ -302,13 +254,9 @@ function AboutSection() {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-evenly",
           paddingTop: "60px",
-          '@media (max-width:600px)': {
-            flexDirection: "column",
-            alignItems: "center",
-          },
         }}
         ref={counterRef}
       >
@@ -335,12 +283,9 @@ function AboutSection() {
           variant="h1"
           sx={{
             color: "black",
-            fontSize: "5rem",
+            fontSize: { xs: "3rem", md: "5rem" },
             margin: "10px 0",
             textShadow: `2px 2px 0 ${theme.palette.primary.main}, -2px -2px 0 ${theme.palette.primary.main}, 2px -2px 0 ${theme.palette.primary.main}, -2px 2px 0 ${theme.palette.primary.main}`,
-            '@media (max-width:600px)': {
-              fontSize: "3rem",
-            },
           }}
         >
           {text}<Cursor />

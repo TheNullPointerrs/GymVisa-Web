@@ -32,7 +32,7 @@ function Hero() {
                     variant="h6"
                     component="div"
                     sx={{
-                        color: 'white',
+                        color: theme.palette.primary.main,
                         fontSize: { xs: '1rem', sm: '1.2rem', md: '2rem' }, 
                         marginBottom: '0.5rem', 
                     }}

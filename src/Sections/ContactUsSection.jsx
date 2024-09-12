@@ -100,15 +100,39 @@ function ContactUsSection() {
             related.
           </Typography>
           <Typography
-          style={{
-            textTransform: "none",
-            fontSize: "1rem",
-            mt: 3,
-            color: theme.palette.primary.main
-          }}
-        >
-          info@gymvisa.co
-        </Typography>
+      style={{
+        textTransform: "none",
+        fontSize: {md:"1rem", sm: "0.6rem"},
+        marginTop: theme.spacing(3),
+        color: theme.palette.primary.main,
+      }}
+    >
+      <Typography
+        component="span"
+        style={{ color: theme.palette.primary.main }}
+      >
+        <strong>Email:</strong>
+      </Typography>{" "}
+      <span style={{ color: "#FFFFFF" }}>info@gymvisa.co</span>
+      <br />
+      <Typography
+        component="span"
+        style={{ color: theme.palette.primary.main }}
+      >
+        <strong>Phone:</strong>
+      </Typography>{" "}
+      <span style={{ color: "#FFFFFF" }}>+92 3237080152</span>
+      <br />
+      <Typography
+        component="span"
+        style={{ color: theme.palette.primary.main }}
+      >
+        <strong>Location:</strong>
+      </Typography>{" "}
+      <span style={{ color: "#FFFFFF" }}>
+        H 5/A, MOHALLAH CANAL BURG, THOKHAR NIAZ BAIG, LAHORE
+      </span>
+    </Typography>
         </Grid>
         <Grid item xs={12} md={8}>
           <Box

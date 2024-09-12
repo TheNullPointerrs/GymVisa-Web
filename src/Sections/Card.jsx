@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/system';
 
-const CardContainer = styled('div')(({ theme }) => ({
+const CardContainer = styled('div')(({ theme, isPremium }) => ({
   backgroundColor: '#1A1A1A',
   borderRadius: '20px',
   boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
@@ -10,6 +10,14 @@ const CardContainer = styled('div')(({ theme }) => ({
   paddingBottom: '50px',
   width: '300px',
   margin: '20px auto',
+  transition: 'transform 0.3s ease',
+
+  '&:hover': {
+    transform: 'scale(1.05)', 
+    '& h3': {
+      color: isPremium ? '#FFD700' : '#CD7F32', 
+    },
+  },
 
   [theme.breakpoints.down('sm')]: {
     width: '70%',
@@ -71,10 +79,9 @@ const ActualPrice = styled('div')({
   fontWeight: 'bold',
 });
 
-const CardSubtitle = styled('h3')(({ theme }) => ({
+const CardSubtitle = styled('h3')(({ theme, isPremium }) => ({
   fontSize: '18px',
-  color: '#FFFFFF',
-  marginBottom: '20px',
+  color: '#FFFFFF',  marginBottom: '20px',
 
   [theme.breakpoints.down('sm')]: {
     fontSize: '16px',
@@ -83,7 +90,7 @@ const CardSubtitle = styled('h3')(({ theme }) => ({
     fontSize: '17px',
   },
   [theme.breakpoints.up('lg')]: {
-    fontSize: '18px',
+    fontSize: '20px',
   },
 }));
 
@@ -105,8 +112,11 @@ const CardBody = styled('div')(({ theme }) => ({
 }));
 
 const Card = ({ originalPrice, amount, name, description}) => {
+  const isPremium = name.toLowerCase().includes('premium');
+
+
   return (
-    <CardContainer id="plans">
+    <CardContainer id="plans" isPremium={isPremium}>
       <CardHeader>
         <CardTitle>
           <OriginalPrice>
@@ -114,7 +124,7 @@ const Card = ({ originalPrice, amount, name, description}) => {
           </OriginalPrice>
           <ActualPrice>{amount} Rs/-</ActualPrice> {/* Firebase price in neon color */}
         </CardTitle>
-        <CardSubtitle>{name}</CardSubtitle>
+        <CardSubtitle isPremium={isPremium}>{name}</CardSubtitle>
       </CardHeader>
       <CardBody>
         <p>{description}</p>

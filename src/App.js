@@ -80,18 +80,18 @@ function App() {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={6}>
                 <Card
-                  originalPrice={8000} // Original price with strikethrough
-                  amount={subscriptionList[0].price} // Actual price from Firebase
-                  name="Standard"
-                  description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Card
                   originalPrice={12000} // Original price with strikethrough
                   amount={subscriptionList[1].price}
                   name="Premium"
                   description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership."
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Card
+                  originalPrice={8000} // Original price with strikethrough
+                  amount={subscriptionList[0].price} // Actual price from Firebase
+                  name="Standard"
+                  description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
                 />
               </Grid>
             </Grid>
