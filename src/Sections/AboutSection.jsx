@@ -65,6 +65,7 @@ function Number({ n, trigger }) {
       {number.to((n) => Math.round(n))}
     </animated.h1>
   );
+  
 }
 
 function GymSlider({ gymList, handlePrev, handleNext }) {
