@@ -82,10 +82,22 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
         alignItems: "center",
         justifyContent: "space-between",
         paddingTop: "60px",
+        '@media (max-width: 600px)': {
+          padding: "20px",
+        },
       }}
     >
       {/* Left arrow */}
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "50px",
+          '@media (max-width: 600px)': {
+            marginRight: "10px",
+          },
+        }}
+      >
         <button
           onClick={handlePrev}
           className="prev-button"
@@ -138,7 +150,16 @@ function GymSlider({ gymList, handlePrev, handleNext }) {
       </Box>
 
       {/* Right arrow */}
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "50px",
+          '@media (max-width: 600px)': {
+            marginLeft: "10px",
+          },
+        }}
+      >
         <button
           onClick={handleNext}
           className="next-button"
