@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Import Router components
 import ContactUsSection from "./Sections/ContactUsSection";
 import Navbar from "./components/Navbar";
 import Hero from "./Sections/Hero";
@@ -10,6 +11,8 @@ import Card from "./Sections/Card";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import { Grid, Box } from "@mui/material";
+import PaymentConfirmation from "./Sections/PaymentConfirmation";
+import PrivacyPolicyRedirect from "./Sections/PrivacyPolicyRedirect"; 
 
 const theme = createTheme({
   palette: {
@@ -59,49 +62,68 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div
-        style={{
-          padding: "20px",
-          minHeight: "100vh",
-          overflowX: "hidden",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <Navbar />
-        <Hero />
-        <Box
-          sx={{
-            paddingTop: "60px",
-            paddingBottom: "100px",
+      <Router> {/* Wrap everything inside Router */}
+        <div
+          style={{
+            padding: "20px",
+            minHeight: "100vh",
+            overflowX: "hidden",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          {subscriptionList.length > 0 && (
-            <Grid container spacing={4}>
-              <Grid item xs={12} sm={6}>
-                <Card
-                  originalPrice={12000} // Original price with strikethrough
-                  amount={subscriptionList[1].price}
-                  name="Premium"
-                  description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership."
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Card
-                  originalPrice={8000} // Original price with strikethrough
-                  amount={subscriptionList[0].price} // Actual price from Firebase
-                  name="Standard"
-                  description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
-                />
-              </Grid>
-            </Grid>
-          )}
-        </Box>
-        <AboutSection />
-        <Features />
-        <ContactUsSection />
-        <Footer />
-      </div>
+          <Routes>
+            <Route path="/payments/success" element={<PaymentConfirmation />} />
+            
+            <Route
+              path="/privacypolicy"
+              element={<PrivacyPolicyRedirect />}
+            />
+            
+            {/* Default route for showing all sections */}
+            <Route
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Hero />
+                  <Box
+                    sx={{
+                      paddingTop: "60px",
+                      paddingBottom: "100px",
+                    }}
+                  >
+                    {subscriptionList.length > 0 && (
+                      <Grid container spacing={4}>
+                        <Grid item xs={12} sm={6}>
+                          <Card
+                            originalPrice={12000} // Original price with strikethrough
+                            amount={subscriptionList[1].price}
+                            name="Premium"
+                            description="Elevate your workout with our premium membership, featuring access to luxury gyms. Enjoy state-of-the-art equipment and explore multiple gyms with one membership."
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Card
+                            originalPrice={8000} // Original price with strikethrough
+                            amount={subscriptionList[0].price} // Actual price from Firebase
+                            name="Standard"
+                            description="Achieve your fitness goals without breaking the bank with our Standard Membership, providing access to essential gym amenities at a reasonable price."
+                          />
+                        </Grid>
+                      </Grid>
+                    )}
+                  </Box>
+                  <AboutSection />
+                  <Features />
+                  <ContactUsSection />
+                  <Footer />
+                </>
+              }
+            />
+          </Routes>
+        </div>
+      </Router>
     </ThemeProvider>
   );
 }
